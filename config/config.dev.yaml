@@ -1,0 +1,53 @@
+name: mozi-device-weihua
+version: v1.0
+env: dev
+
+# 注册发现地址
+discovery:
+  ipAddr: 192.168.18.66
+  port: 8848
+  timeout: 5
+  onOff: false
+
+trace:
+  endpoint: http://jaeger-collector.tracing-system:14268/api/traces
+  fraction: 1 # trace记录频率 0:不记录 0.5:50%概率记录 1:每个请求的记录
+
+metrics:
+  addr: 0.0.0.0:6060
+
+server:
+  http:
+    addr: 0.0.0.0:6001
+    timeout: 10
+  grpc:
+    addr: 0.0.0.0:6101
+    timeout: 10
+  nodeId: 0
+
+data:
+  # mongo:
+  #   address: "mongodb://mongodb-srv:27017"
+  #   dbName: "hi_kit"
+  redis:
+    mode: single
+    address: 192.168.18.66:6379
+    password: Hiscene2022
+    db: 11
+    autoPrefix: "mozi:"
+  database:
+    address: "192.168.18.66:23306" #测试
+    username: "root"
+    password: "Hiscene2022"
+    dbName: "hiar_mozi_device"
+    timeout: 5
+
+
+httpEndpoint:
+  addr: "localhost:18109"
+
+
+mqtt:
+  server: "192.168.18.66:1883" #测试
+  subTopicDeviceUpdate: "MOZI/deviceUpdate1"
+  subTopicChannelUpdate: "MOZI/channelUpdate1"

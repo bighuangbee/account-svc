@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+package api.account.v1;
+
+option go_package = "github.com/bighuanbgee/account-svc/api/account/v1;v1";
+

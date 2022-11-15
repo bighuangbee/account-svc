@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package api.account.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/descriptor.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+//import "common/common/common.proto";
+//import "api/account/v1/enum.proto";
+
+option go_package = "github.com/bighuangbee/account-svc/api/account/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.account.v1";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+	info : {
+		title : "设备服务",
+		version : "1",
+		description : "标签服务",
+		contact : {name : "黄伟华" email : "bigbuangbee@qq.com"}
+	}
+	host : "",
+	security_definitions: {
+		security: {
+		key: "ApiKeyAuth";
+		value: {
+			type: TYPE_API_KEY;
+			in: IN_HEADER;
+			name: "token";
+		}
+		}
+	},
+	responses: {
+		key: "403";
+		value: {
+		description: "Returned when the user does not have permission to access the resource.";
+		}
+	}
+};
+
+service Account {
+	rpc Login (LoginReq) returns (LoginReply){
+		option (google.api.http) = {
+			post : "/api/v1.0/account/login",
+			body : "*",
+		  };
+	};
+
+}
+
+message LoginReq{
+}
+
+message LoginReply{
+}
+

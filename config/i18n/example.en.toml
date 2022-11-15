@@ -1,0 +1,4 @@
+UserNotFound="User not found"
+RegisteredSuccessfully="{{.p1}} has successfully registered"
+PhoneNumberRegistered ="Phone number {{.p1}} has been registered"
+

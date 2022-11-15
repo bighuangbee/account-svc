@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package api.account.v1;
+import "google/protobuf/descriptor.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/bighuangbee/account-svc/api/account/v1;v1";
+
+// PageArg 分页参数
+message PageArg {
+	int32 pageNo = 1 [(validate.rules).int32 = {ignore_empty: true, gte: 0}];
+	int32 pageSize = 2 [(validate.rules).int32 = {ignore_empty: true, gt: 0}];
+
+	string orderBy = 3;
+	string orderType = 4 [(validate.rules).string = {ignore_empty: true, in: ['asc', 'desc']}];
+}
+
+message CreatedAtInfo {
+  google.protobuf.Timestamp createdAt = 1;
+  uint32  createdBy = 2;
+}
+message CreatedByNameInfo {
+  string createdByName =1;
+}
+
+message UpdatedAtInfo {
+  google.protobuf.Timestamp updatedAt = 1;
+  uint32  updatedBy=2;
+}
+message UpdatedByNameInfo {
+  string updatedByName = 1;
+}
+
+message DeletedAtInfo {
+  google.protobuf.Timestamp deletedAt = 1;
+  uint32 deletedBy = 2;
+}
+message DeletedByNameInfo {
+  string deletedByName =1;
+}

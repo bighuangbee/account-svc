@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package api.mozi.common.v1;
+
+import "google/protobuf/descriptor.proto";
+import "common/errors/errors.proto";
+
+option go_package = "github.com/bighuangbee/account-svc/api/account/v1;v1";
+
+enum ErrorReason {
+    // 操作成功
+    Success = 0 [ (errors.code) = 0 ];
+    // 内部错误
+    InternalError = 1 [ (errors.code) = 1 ];
+    // 数据库错误
+    DbError = 2 [ (errors.code) = 2 ];
+    // 无效的参数
+    InvalidParameter = 7 [ (errors.code) = 7 ];
+    // 请求超时
+    Timeout = 9 [ (errors.code) = 9 ];
+    // jwt token无效
+    Unauthenticated = 11 [ (errors.code) = 11];
+    // 记录未找到
+    RecordNotFound = 12 [ (errors.code) = 12 ];
+    // 记录已经存在
+    RecordIsExists = 13 [ (errors.code) = 13 ];
+    // RedisExist 错误
+    RedisExistError = 14 [ (errors.code) = 14 ];
+    // RedisGet 错误
+    RedisGetError = 15 [ (errors.code) = 15 ];
+    // 无访问权限
+    NoAccess = 30 [ (errors.code) = 30 ];
+    // 前面预留慧飞旧服务错误码使用
+    GrpcError = 50 [ (errors.code) = 50 ];
+    // http调用失败
+    HttpError = 51 [ (errors.code) = 51 ];
+    // 验证码校验失败
+    CaptchaError = 52 [ (errors.code) = 52 ];
+    // 账号密码校验失败
+    AccountPwdError = 53 [ (errors.code) = 53 ];
+
+}
+

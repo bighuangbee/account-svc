@@ -1,0 +1,1499 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/apps/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Device API
+    version: 0.0.1
+paths:
+    /api/v1.0/deviceMan/channels/details/chanId/{id}:
+        get:
+            tags:
+                - Device
+            description: 通过chanid查 通道-详情(包含可视角度列表)
+            operationId: Device_ChannelDetail
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChansDistanceInfo'
+    /api/v1.0/deviceMan/channels/details/{deviceGbId}/{chanGbId}:
+        get:
+            tags:
+                - Device
+            description: 通过国标id查 通道-详情(包含可视角度列表)
+            operationId: Device_ChannelDetailByGb
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: chanGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChansDistanceInfo'
+    /api/v1.0/deviceMan/channels/details/{id}:
+        get:
+            tags:
+                - Device
+            description: 通道-详情 (通道表本身)
+            operationId: Device_ChannelDetails
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChannelEntity'
+        put:
+            tags:
+                - Device
+            description: 通道-增量字段编辑
+            operationId: Device_UpdateChannelOptional
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateChannelReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1.0/deviceMan/channels/play:
+        post:
+            tags:
+                - Device
+            description: 通道-获取播放地址
+            operationId: Device_ChannelPlay
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ChannelPlayReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChannelPlayReply'
+    /api/v1.0/deviceMan/channels/playback/pauseResume/{stream}/{action}:
+        get:
+            tags:
+                - Device
+            description: 录像-暂停/播放
+            operationId: Device_DeviceRecordPlayPauseResume
+            parameters:
+                - name: stream
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: action
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1.0/deviceMan/channels/playback/seek/{stream}/{seekTime}:
+        get:
+            tags:
+                - Device
+            description: 录像-拖动
+            operationId: Device_DeviceRecordPlaySeek
+            parameters:
+                - name: stream
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: seekTime
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1.0/deviceMan/channels/playback/start/{deviceGbId}/{channelGbId}:
+        get:
+            tags:
+                - Device
+            description: 录像-播放
+            operationId: Device_DeviceRecordPlay
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: startTime
+                  in: query
+                  schema:
+                    type: string
+                - name: endTime
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecordPlayReply'
+    /api/v1.0/deviceMan/channels/playback/stop/{deviceGbId}/{channelGbId}/{stream}:
+        get:
+            tags:
+                - Device
+            description: 录像-停止播放
+            operationId: Device_DeviceRecordPlayStop
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: stream
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1.0/deviceMan/channels/ptz/control/{deviceGbId}/{channelGbId}:
+        post:
+            tags:
+                - Device
+            description: PTZ控制
+            operationId: Device_PtzControl
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PtzControlReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1.0/deviceMan/channels/records/download/addr/{mediaServerId}/{stream}/{taskId}:
+        get:
+            tags:
+                - Device
+            description: 录像-获取下载地址
+            operationId: Device_DeviceRecordDownloadAddr
+            parameters:
+                - name: mediaServerId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: stream
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: taskId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: progress
+                  in: query
+                  schema:
+                    type: number
+                    format: float
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DownloadAddrReply'
+    /api/v1.0/deviceMan/channels/records/download/progress/{deviceGbId}/{channelGbId}/{stream}:
+        get:
+            tags:
+                - Device
+            description: 录像-获取下载进度
+            operationId: Device_DeviceRecordDownloadProgress
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: stream
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DownloadAddrEntity'
+    /api/v1.0/deviceMan/channels/records/download/start/{deviceGbId}/{channelGbId}:
+        get:
+            tags:
+                - Device
+            description: 录像-启动下载
+            operationId: Device_DeviceRecordDownload
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: startTime
+                  in: query
+                  schema:
+                    type: string
+                - name: endTime
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DownloadEntity'
+    /api/v1.0/deviceMan/channels/records/hook:
+        post:
+            tags:
+                - Device
+            description: 录像-ZLM录制mp4完成后通知事件
+            operationId: Device_DeviceRecordHook
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DeviceRecordHookReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1.0/deviceMan/channels/snap/list:
+        post:
+            tags:
+                - Device
+            description: 批量获取通道截图
+            operationId: Device_ChannelSnapList
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DeviceChannelListReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChannelSnapListRep'
+    /api/v1.0/deviceMan/channels/snap/{deviceGbId}/{channelGbId}:
+        post:
+            tags:
+                - Device
+            description: 获取通道截图
+            operationId: Device_ChannelSnap
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DeviceChannel'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChannelSnapItem'
+    /api/v1.0/deviceMan/channels/{deviceGbId}/{channelGbId}/records:
+        get:
+            tags:
+                - Device
+            description: 录像-获取文件列表
+            operationId: Device_DeviceRecords
+            parameters:
+                - name: deviceGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: startTime
+                  in: query
+                  schema:
+                    type: string
+                - name: endTime
+                  in: query
+                  schema:
+                    type: string
+                - name: type
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecordsReply'
+    /api/v1.0/deviceMan/device:
+        get:
+            tags:
+                - Device
+            description: 设备列表
+            operationId: Device_DeviceList
+            parameters:
+                - name: page.pageNo
+                  in: query
+                  description: default 1
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page.pageSize
+                  in: query
+                  description: default 不分页
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page.orderBy
+                  in: query
+                  schema:
+                    type: string
+                - name: page.orderType
+                  in: query
+                  schema:
+                    type: string
+                - name: key
+                  in: query
+                  schema:
+                    type: string
+                - name: online
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: createdAtStart
+                  in: query
+                  schema:
+                    type: string
+                - name: createdAtEnd
+                  in: query
+                  schema:
+                    type: string
+                - name: orderField
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeviceListReply'
+        delete:
+            tags:
+                - Device
+            description: 设备删除
+            operationId: Device_DeviceDelete
+            parameters:
+                - name: gbIds
+                  in: query
+                  description: repeated string gbIds = 1;
+                  schema:
+                    type: array
+                    items:
+                        type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeviceDeleteReply'
+    /api/v1.0/deviceMan/device/ptz/{chanId}:
+        get:
+            tags:
+                - Device
+            description: 获取一次ptz
+            operationId: Device_PtzGet
+            parameters:
+                - name: chanId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: calibration
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PtzGetReply'
+    /api/v1.0/deviceMan/device/ptz/{chanId}/start:
+        get:
+            tags:
+                - Device
+            description: 开启PTZ识别，或刷新过期时间。开启后5分钟停止，由客户端刷新
+            operationId: Device_PtzStart
+            parameters:
+                - name: chanId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: calibration
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PtzStartReply'
+    /api/v1.0/deviceMan/device/ptz/{chanId}/stop:
+        get:
+            tags:
+                - Device
+            operationId: Device_PtzStop
+            parameters:
+                - name: chanId
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: calibration
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PtzStartReply'
+    /api/v1.0/deviceMan/device/sync:
+        post:
+            tags:
+                - Device
+            description: 刷新设备下通道
+            operationId: Device_DeviceSync
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DeviceSyncReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1.0/deviceMan/device/syncStatus:
+        post:
+            tags:
+                - Device
+            operationId: Device_DeviceSyncStatus
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DeviceSyncStatusReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeviceSyncStatusReply'
+    /api/v1.0/deviceMan/device/syncWvp:
+        post:
+            tags:
+                - Device
+            description: 同步wvp全部设备、通道、子目录
+            operationId: Device_SyncWvp
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SyncWvpRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SyncWvpReply'
+    /api/v1.0/deviceMan/device/syncingWvp:
+        get:
+            tags:
+                - Device
+            description: 是否正在同步wvp，或判断同步是否已完成
+            operationId: Device_SyncingWvp
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SyncingWvpReply'
+    /api/v1.0/deviceMan/device/{id}:
+        get:
+            tags:
+                - Device
+            description: 设备详情
+            operationId: Device_DeviceDetails
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeviceEntity'
+        put:
+            tags:
+                - Device
+            description: 设备编辑
+            operationId: Device_DeviceUpdate
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: uint64
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DeviceUpdateReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeviceUpdateReply'
+    /api/v1.0/deviceMan/device/{id}/channels:
+        get:
+            tags:
+                - Device
+            description: 通道-列表
+            operationId: Device_ChannelList
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+                - name: page.pageNo
+                  in: query
+                  description: default 1
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page.pageSize
+                  in: query
+                  description: default 不分页
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page.orderBy
+                  in: query
+                  schema:
+                    type: string
+                - name: page.orderType
+                  in: query
+                  schema:
+                    type: string
+                - name: key
+                  in: query
+                  schema:
+                    type: string
+                - name: online
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: createdAtStart
+                  in: query
+                  schema:
+                    type: string
+                - name: createdAtEnd
+                  in: query
+                  schema:
+                    type: string
+                - name: orderField
+                  in: query
+                  schema:
+                    type: string
+                - name: deviceGbId
+                  in: query
+                  schema:
+                    type: string
+                - name: channelGbId
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChannelListReply'
+components:
+    schemas:
+        CameraViewableAngleEn:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                cameraId:
+                    type: integer
+                    format: uint64
+                parentId:
+                    type: integer
+                    format: uint64
+                status:
+                    type: integer
+                    format: int32
+                start:
+                    type: number
+                    format: double
+                end:
+                    type: number
+                    format: double
+                createdAt:
+                    type: string
+                    format: RFC3339
+        ChannelEntity:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                channelGbId:
+                    type: string
+                deviceGbId:
+                    type: string
+                indexCode:
+                    type: string
+                name:
+                    type: string
+                manufacturer:
+                    type: string
+                ptzType:
+                    type: integer
+                    format: uint32
+                ptzTypeText:
+                    type: string
+                addr:
+                    type: string
+                online:
+                    type: integer
+                    format: uint32
+                lat:
+                    type: number
+                    format: float
+                lon:
+                    type: number
+                    format: float
+                alt:
+                    type: number
+                    format: float
+                heightType:
+                    type: integer
+                    format: int32
+                hasControl:
+                    type: integer
+                    format: int32
+                hasPtz:
+                    type: integer
+                    format: int32
+                calibStatus:
+                    type: integer
+                    format: uint32
+                calibUser:
+                    type: string
+                calibTime:
+                    type: string
+                horizontal:
+                    type: number
+                    format: float
+                vertical:
+                    type: number
+                    format: float
+                horizontalDir:
+                    type: integer
+                    format: int32
+                verticalDir:
+                    type: integer
+                    format: int32
+                verUpLimit:
+                    type: number
+                    format: float
+                verLowLimit:
+                    type: number
+                    format: float
+                modelId:
+                    type: integer
+                    format: uint64
+                height:
+                    type: number
+                    format: float
+                deviceId:
+                    type: integer
+                    format: uint64
+                deviceSource:
+                    type: integer
+                    format: uint32
+                createdAt:
+                    type: string
+                createdBy:
+                    type: integer
+                    format: uint64
+                updatedAt:
+                    type: string
+                updatedBy:
+                    type: integer
+                    format: uint64
+                ipcIp:
+                    type: string
+                ipcPort:
+                    type: integer
+                    format: uint32
+                ipcUsername:
+                    type: string
+                ipcPwd:
+                    type: string
+                model:
+                    type: string
+        ChannelItem:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                channelGbId:
+                    type: string
+                deviceGbId:
+                    type: string
+                name:
+                    type: string
+                manufacturer:
+                    type: string
+                ptzType:
+                    type: integer
+                    format: uint32
+                ptzTypeText:
+                    type: string
+                addr:
+                    type: string
+                online:
+                    type: integer
+                    format: uint32
+                calibStatus:
+                    type: integer
+                    format: int32
+                deviceId:
+                    type: integer
+                    format: uint64
+                createdAt:
+                    type: string
+                createdBy:
+                    type: integer
+                    format: uint64
+                updatedAt:
+                    type: string
+                updatedBy:
+                    type: integer
+                    format: uint64
+        ChannelListReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ChannelItem'
+                total:
+                    type: integer
+                    format: uint32
+        ChannelPlayReply:
+            type: object
+            properties:
+                addr:
+                    type: object
+                    additionalProperties:
+                        $ref: '#/components/schemas/Channelplay'
+        ChannelPlayReq:
+            type: object
+            properties:
+                devChans:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/DeviceChannel'
+        ChannelSnapItem:
+            type: object
+            properties:
+                imgData:
+                    type: string
+                    format: bytes
+        ChannelSnapListRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        type: string
+                        format: bytes
+        Channelplay:
+            type: object
+            properties:
+                stream:
+                    type: string
+                flv:
+                    type: string
+                hls:
+                    type: string
+                wsFlv:
+                    type: string
+                wsHls:
+                    type: string
+                errMsg:
+                    type: string
+        ChansDistanceInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                basicType:
+                    type: integer
+                    format: uint32
+                buzType:
+                    type: integer
+                    format: uint32
+                name:
+                    type: string
+                address:
+                    type: string
+                lat:
+                    type: number
+                    format: double
+                lon:
+                    type: number
+                    format: double
+                distance:
+                    type: integer
+                    format: uint32
+                ptzType:
+                    type: integer
+                    format: uint32
+                ptzTypeText:
+                    type: string
+                alt:
+                    type: number
+                    format: double
+                online:
+                    type: integer
+                    format: uint32
+                height:
+                    type: number
+                    format: double
+                viewableAngle:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/CameraViewableAngleEn'
+        DeviceChannel:
+            type: object
+            properties:
+                deviceGbId:
+                    type: string
+                channelGbId:
+                    type: string
+        DeviceChannelInfo:
+            type: object
+            properties:
+                deviceGbId:
+                    type: string
+                chanGbId:
+                    type: string
+        DeviceChannelListReq:
+            type: object
+            properties:
+                devChans:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/DeviceChannelInfo'
+        DeviceDeleteReply:
+            type: object
+            properties: {}
+        DeviceEntity:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                deviceGbId:
+                    type: string
+                name:
+                    type: string
+                remoteIp:
+                    type: string
+                remotePort:
+                    type: integer
+                    format: uint32
+                manufacturer:
+                    type: string
+                commandTransport:
+                    type: string
+                streamMode:
+                    type: string
+                channelCount:
+                    type: integer
+                    format: uint32
+                charset:
+                    type: string
+                online:
+                    type: integer
+                    format: uint32
+                status:
+                    type: integer
+                    format: uint32
+                expires:
+                    type: integer
+                    format: uint32
+                subscribeCycleForAlarm:
+                    type: integer
+                    format: int32
+                subscribeCycleForCatalog:
+                    type: integer
+                    format: int32
+                subscribeCycleForMobilePosition:
+                    type: integer
+                    format: int32
+                dropChannelType:
+                    type: string
+                recordCenter:
+                    type: integer
+                    format: int32
+                recordIndistinct:
+                    type: integer
+                    format: int32
+                civilCodeFirst:
+                    type: integer
+                    format: int32
+                isEdit:
+                    type: integer
+                    format: int32
+                createdAt:
+                    type: string
+                createdBy:
+                    type: integer
+                    format: uint64
+                updatedAt:
+                    type: string
+                updatedBy:
+                    type: integer
+                    format: uint64
+                model:
+                    type: string
+                keepAliveTime:
+                    type: string
+        DeviceItem:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                deviceGbId:
+                    type: string
+                name:
+                    type: string
+                remoteIp:
+                    type: string
+                remotePort:
+                    type: integer
+                    format: uint32
+                manufacturer:
+                    type: string
+                channelCount:
+                    type: integer
+                    format: uint32
+                online:
+                    type: integer
+                    format: uint32
+                status:
+                    type: integer
+                    format: uint32
+                createdAt:
+                    type: string
+                model:
+                    type: string
+                keepAliveTime:
+                    type: string
+        DeviceListReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/DeviceItem'
+                total:
+                    type: integer
+                    format: uint32
+        DeviceRecordHookReq:
+            type: object
+            properties:
+                mediaServerId:
+                    type: string
+                app:
+                    type: string
+                fileName:
+                    type: string
+                filePath:
+                    type: string
+                fileSize:
+                    type: integer
+                    format: int32
+                folder:
+                    type: string
+                startTime:
+                    type: integer
+                    format: int64
+                stream:
+                    type: string
+                timeLen:
+                    type: number
+                    format: float
+                url:
+                    type: string
+                vhost:
+                    type: string
+            description: hook 录制mp4完成后通知事件
+        DeviceSyncReq:
+            type: object
+            properties:
+                deviceGbIds:
+                    type: array
+                    items:
+                        type: string
+        DeviceSyncStatus:
+            type: object
+            properties:
+                current:
+                    type: integer
+                    format: int32
+                errorMsg:
+                    type: string
+                syncIng:
+                    type: boolean
+                total:
+                    type: integer
+                    format: int32
+        DeviceSyncStatusReply:
+            type: object
+            properties:
+                status:
+                    type: object
+                    additionalProperties:
+                        $ref: '#/components/schemas/DeviceSyncStatus'
+        DeviceSyncStatusReq:
+            type: object
+            properties:
+                deviceGbIds:
+                    type: array
+                    items:
+                        type: string
+        DeviceUpdateReply:
+            type: object
+            properties: {}
+        DeviceUpdateReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                deviceGbId:
+                    type: string
+                name:
+                    $ref: '#/components/schemas/StringValue'
+                sipIP:
+                    type: string
+                receiveStreamIP:
+                    type: string
+                manufacturer:
+                    $ref: '#/components/schemas/StringValue'
+                streamMode:
+                    type: string
+                    description: 'string commandTransport = 7[(validate.rules).string = {in: ["UDP", "TCP"]}]; // 信令传输 UDP'
+                charset:
+                    type: string
+                expires:
+                    type: integer
+                    format: uint32
+                subscribeCycleForAlarm:
+                    type: integer
+                    format: int32
+                subscribeCycleForCatalog:
+                    type: integer
+                    format: int32
+                subscribeCycleForMobilePosition:
+                    type: integer
+                    format: int32
+                dropChannelType:
+                    type: string
+                recordCenter:
+                    type: integer
+                    format: int32
+                recordIndistinct:
+                    type: integer
+                    format: int32
+                civilCodeFirst:
+                    type: integer
+                    format: int32
+                updatedBy:
+                    type: integer
+                    format: uint64
+        DoubleValue:
+            type: object
+            properties:
+                value:
+                    type: number
+                    description: The double value.
+                    format: double
+            description: Wrapper message for `double`. The JSON representation for `DoubleValue` is JSON number.
+        DownloadAddrEntity:
+            type: object
+            properties:
+                mediaServerId:
+                    type: string
+                progress:
+                    type: number
+                    format: float
+                taskId:
+                    type: string
+                stream:
+                    type: string
+        DownloadAddrReply:
+            type: object
+            properties:
+                startTime:
+                    type: string
+                endTime:
+                    type: string
+                downloadFile:
+                    type: string
+        DownloadEntity:
+            type: object
+            properties:
+                deviceGbId:
+                    type: string
+                channelGbId:
+                    type: string
+                stream:
+                    type: string
+            description: 录像下载
+        PtzControlReq:
+            type: object
+            properties:
+                deviceGbId:
+                    type: string
+                channelGbId:
+                    type: string
+                command:
+                    type: integer
+                    format: int32
+                speed:
+                    type: integer
+                    format: int32
+                duration:
+                    type: integer
+                    format: int32
+        PtzGetReply:
+            type: object
+            properties:
+                chanId:
+                    type: integer
+                    format: uint64
+                ptz:
+                    $ref: '#/components/schemas/PtzStartReply'
+        PtzStartReply:
+            type: object
+            properties:
+                horizontal:
+                    type: number
+                    format: float
+                vertical:
+                    type: number
+                    format: float
+                zoom:
+                    type: number
+                    format: float
+                box:
+                    type: array
+                    items:
+                        type: number
+                        format: float
+        RecordItem:
+            type: object
+            properties:
+                deviceGbId:
+                    type: string
+                channeGblId:
+                    type: string
+                name:
+                    type: string
+                filePath:
+                    type: string
+                fileSize:
+                    type: integer
+                    format: int32
+                address:
+                    type: string
+                startTime:
+                    type: string
+                endTime:
+                    type: string
+                recordId:
+                    type: string
+                type:
+                    type: integer
+                    format: int32
+        RecordPlayReply:
+            type: object
+            properties:
+                addr:
+                    $ref: '#/components/schemas/Channelplay'
+        RecordsReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/RecordItem'
+                total:
+                    type: integer
+                    format: uint32
+        StringValue:
+            type: object
+            properties:
+                value:
+                    type: string
+                    description: The string value.
+            description: Wrapper message for `string`. The JSON representation for `StringValue` is JSON string.
+        SyncWvpReply:
+            type: object
+            properties:
+                dbDeviceCount:
+                    type: integer
+                    format: uint64
+                dbChannelCount:
+                    type: integer
+                    format: uint64
+                wvpDeviceCount:
+                    type: integer
+                    format: uint64
+                wvpChannelCount:
+                    type: integer
+                    format: uint64
+                wvpChannelNonDuplicateCount:
+                    type: integer
+                    format: uint64
+                dbDeviceRedundancyCount:
+                    type: integer
+                    format: uint64
+                dbChannelRedundancyCount:
+                    type: integer
+                    format: uint64
+        SyncWvpRequest:
+            type: object
+            properties: {}
+        SyncingWvpReply:
+            type: object
+            properties:
+                syncing:
+                    type: boolean
+        UInt32Value:
+            type: object
+            properties:
+                value:
+                    type: integer
+                    description: The uint32 value.
+                    format: uint32
+            description: Wrapper message for `uint32`. The JSON representation for `UInt32Value` is JSON number.
+        UInt64Value:
+            type: object
+            properties:
+                value:
+                    type: integer
+                    description: The uint64 value.
+                    format: uint64
+            description: Wrapper message for `uint64`. The JSON representation for `UInt64Value` is JSON string.
+        UpdateChannelReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                chanGbId:
+                    $ref: '#/components/schemas/StringValue'
+                deviceGbId:
+                    $ref: '#/components/schemas/StringValue'
+                indexCode:
+                    $ref: '#/components/schemas/StringValue'
+                name:
+                    $ref: '#/components/schemas/StringValue'
+                manufacturer:
+                    $ref: '#/components/schemas/StringValue'
+                ptzType:
+                    $ref: '#/components/schemas/UInt32Value'
+                ptzTypeText:
+                    $ref: '#/components/schemas/StringValue'
+                addr:
+                    $ref: '#/components/schemas/StringValue'
+                online:
+                    $ref: '#/components/schemas/UInt32Value'
+                lat:
+                    $ref: '#/components/schemas/DoubleValue'
+                lon:
+                    $ref: '#/components/schemas/DoubleValue'
+                alt:
+                    $ref: '#/components/schemas/DoubleValue'
+                deviceId:
+                    $ref: '#/components/schemas/UInt64Value'
+                deviceSource:
+                    $ref: '#/components/schemas/UInt32Value'
+                updatedBy:
+                    type: integer
+                    format: uint64
+                updatedByName:
+                    type: string
+            description: 标定数据,
+tags:
+    - name: Device
